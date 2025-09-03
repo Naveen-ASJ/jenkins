@@ -25,7 +25,7 @@ pipeline {
  }
  stage('SonarQube Analysis') {
  steps {
- withSonarQubeEnv('SONARQUBE') { // must match configured name
+ withSonarQubeEnv('sonar-scanner') { // must match configured name
  sh '''
  cd javaapp-standalone
  mvn clean verify sonar:sonar \
