@@ -1,10 +1,10 @@
 pipeline {
- agent { label 'Docker' }
-environment {
- SONARQUBE = credentials('sonar-scanner') // Jenkins credential for token
- }
- stages {
- stage('Checkout') {
+     agent { label 'Docker' }
+    environment {
+             SONARQUBE = credentials('sonar-scanner') // Jenkins credential for token
+            }  
+        stages {
+            stage('Checkout') {
  steps {
  git branch: 'master', url: 'https://github.com/Naveen-ASJ/jenkins.git'
  }
@@ -25,7 +25,7 @@ environment {
  }
  stage('SonarQube Analysis') {
  steps {
- withSonarQubeEnv('sonar-scanner') { // must match configured name
+ withSonarQubeEnv('SONARQUBE') { // must match configured name
  sh '''
  cd javaapp-standalone
  mvn clean verify sonar:sonar \
@@ -65,7 +65,7 @@ environment {
  aws ecr get-login-password --region us-east-1 | docker login --username AWS --
 password-stdin 337909742575.dkr.ecr.us-east-1.amazonaws.com &&
  docker tag myapp:latest 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest &&
- docker push 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaappimage:latest
+ docker push 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
  """
  }
  }
@@ -74,7 +74,7 @@ password-stdin 337909742575.dkr.ecr.us-east-1.amazonaws.com &&
  sh """
  docker stop myapp || true &&
  docker rm -f myapp || true &&
- docker pull 337909742575.dkr.ecr.ap-south-1.amazonaws.com/javaappimage:latest &&
+ docker pull 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaappimage:latest &&
  docker run -d --name myapp -p 5000:5000 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
  """
  script {
@@ -83,7 +83,7 @@ password-stdin 337909742575.dkr.ecr.us-east-1.amazonaws.com &&
  returnStdout: true
  ).trim()
  echo "==================================================="
- echo " Application deployed successfully!"
+ echo " Application deployed successfully! 🎉"
  echo " Access it here: http://${PUBLIC_IP}:5000"
  echo "==================================================="
  }
