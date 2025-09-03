@@ -71,12 +71,12 @@ sh '''
  }
  stage('Deploy') {
  steps {
- sh """
- docker stop myapp || true &&
- docker rm -f myapp || true &&
- docker pull 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
-docker run -d --name myapp -p 8080:8080 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
- """
+ sh '''
+            docker stop myapp || true
+            docker rm -f myapp || true
+            docker pull 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
+            docker run -d --name myapp -p 8080:8080 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
+        '''
  script {
  def PUBLIC_IP = sh(
  script: "curl -s http://checkip.amazonaws.com",
