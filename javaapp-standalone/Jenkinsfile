@@ -74,7 +74,7 @@ sh '''
  sh """
  docker stop myapp || true &&
  docker rm -f myapp || true &&
- docker pull 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaappimage:latest &&
+ docker pull 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest &&
  docker run -d --name myapp -p 5000:5000 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
  """
  script {
