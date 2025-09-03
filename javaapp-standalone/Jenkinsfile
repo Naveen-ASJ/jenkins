@@ -1,7 +1,7 @@
 pipeline {
      agent { label 'Docker' }
     environment {
-             SONARQUBE = credentials('sonar-scanner') // Jenkins credential for token
+             SONARQUBE = credentials('sonar') // Jenkins credential for token
             }  
         stages {
             stage('Checkout') {
@@ -25,7 +25,7 @@ pipeline {
  }
  stage('SonarQube Analysis') {
  steps {
- withSonarQubeEnv('sonar-scanner') { // must match configured name
+ withSonarQubeEnv('sonar') { // must match configured name
  sh '''
  cd javaapp-standalone
  mvn clean verify sonar:sonar \
