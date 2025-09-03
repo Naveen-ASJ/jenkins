@@ -1,7 +1,7 @@
 pipeline {
      agent { label 'Docker' }
     environment {
-             SONARQUBE = credentials('sonar') // Jenkins credential for token
+             SONARQUBE = credentials('sonar-scanner') // Jenkins credential for token
             }  
         stages {
             stage('Checkout') {
