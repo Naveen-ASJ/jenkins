@@ -61,12 +61,12 @@ pipeline {
  }
  stage('Push to ECR') {
  steps {
- sh """
- aws ecr get-login-password --region us-east-1 | docker login --username AWS --
-password-stdin 337909742575.dkr.ecr.us-east-1.amazonaws.com &&
- docker tag myapp:latest 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest &&
- docker push 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
- """
+sh '''
+    export AWS_PASS=$(aws ecr get-login-password --region us-east-1)
+    echo $AWS_PASS | docker login --username AWS --password-stdin 337909742575.dkr.ecr.us-east-1.amazonaws.com
+    docker tag myapp:latest 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
+    docker push 337909742575.dkr.ecr.us-east-1.amazonaws.com/javaapp-image:latest
+'''
  }
  }
  stage('Deploy') {
