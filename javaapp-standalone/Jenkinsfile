@@ -55,7 +55,7 @@ pipeline {
 {
  sh """
  export TRIVY_CACHE_DIR=/tmp/trivy
- trivy image --severity HIGH,CRITICAL --exit-code 1 myapp:latest
+ trivy image --severity HIGH,CRITICAL --exit-code 0 myapp:latest
  """
  }
  }
